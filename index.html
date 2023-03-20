@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html> 
+  <head>
+    <title>Processing.JS inside Webpages: Template</title> 
+  </head>
+  <body>
+	<!--This draws the canvas on the webpage -->
+    <canvas id="mycanvas"></canvas> 
+  </body>
+ 
+  <!-- Include the processing.js library -->
+  <!-- See https://khanacademy.zendesk.com/hc/en-us/articles/202260404-What-parts-of-ProcessingJS-does-Khan-Academy-support- for differences -->
+  <script src="https://cdn.jsdelivr.net/processing.js/1.4.8/processing.min.js"></script> 
+  <script>
+  var programCode = function(processingInstance) {
+    with (processingInstance) {
+      size(1000, 1000); 
+      frameRate(30);
+        
+      // Paste code from Khan Academy here:
+
+      var xPositions = [];
+      var yPositions = [];
+      
+      var beaver = function () {
+        background(random(255), random(255), random(255));
+        for (var i = 0; i < xPositions.length; i++) {
+          var beaverX = xPositions[i];
+          var beaverY = yPositions[i];
+          noStroke();
+          fill(140, 92, 38); // head
+          ellipse(beaverX, beaverY, 100, 100);
+          fill(140, 92, 38); // ears
+          ellipse(beaverX - 35, beaverY - 45, 30, 30);
+          ellipse(beaverX + 35, beaverY - 45, 30, 30);
+          fill(0, 0, 0); // eyes 
+          ellipse(beaverX - 15, beaverY - 15, 10, 10);
+          ellipse(beaverX + 15, beaverY - 15, 10, 10);
+          stroke(0, 0, 0); // teeth
+          fill(255, 255, 255);
+          rect(beaverX - 5, beaverY + 10, 5, 13);
+          rect(beaverX, beaverY + 10, 5, 13);
+          fill(0, 0, 0); // nose
+          noStroke();
+          arc(beaverX, beaverY + 5, 15, 15, 0, 180);
+          arc(beaverX -4, beaverY + 5, 8, 8, 180, 360);
+          arc(beaverX +4, beaverY + 5, 8, 8, 180, 360);
+          noFill(); // whiskers
+          stroke(0, 0, 0);
+          arc(beaverX - 15, beaverY + 7, 30, 12, 200, 360);
+          arc(beaverX - 15, beaverY + 10, 30, 10, 170, 360);
+          arc(beaverX + 15, beaverY + 7, 30, 12, 220, 360);
+          arc(beaverX + 15, beaverY + 10, 30, 10, 170, 360);
+
+          if (i > 10) {
+            xPositions.push(100, 200, 300, 400, 500, 600, 700, 800, 900);
+            yPositions.push(100, 200, 300, 400, 500, 600, 700, 800, 900);
+            beaver();
+            fill(42, 44, 196);
+            stroke(0, 0, 0);
+            textSize(40);
+            textAlign(CENTER, CENTER);
+            text("IT'S BEAVER TIME, BABY!", 500, 500);
+          }
+        }
+      };
+
+      mouseClicked = function(){
+        xPositions.push(mouseX);
+        yPositions.push(mouseY);
+        beaver();          
+      };
+
+
+    };
+   
+  }
+  // Get the canvas that ProcessingJS will use
+  var canvas = document.getElementById("mycanvas"); 
+  // Pass the function to ProcessingJS constructor
+  var processingInstance = new Processing(canvas, programCode); 
+  </script>
+</html>
